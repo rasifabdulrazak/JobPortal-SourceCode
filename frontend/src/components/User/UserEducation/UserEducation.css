@@ -1,0 +1,15 @@
+.educationAdd{
+    text-align:right;
+    float:right;
+    font-weight: bold;
+    color:blue;
+}
+.educationAdd:hover{
+    cursor: pointer;
+}
+
+.deleteicon{
+    text-align:right;
+    float:right;
+    margin-bottom: 2rem;
+}

@@ -1,0 +1,9 @@
+.projectAdd{
+    text-align:right;
+    float:right;
+    font-weight: bold;
+    color:blue;
+}
+.projectAdd:hover{
+    cursor: pointer;
+}

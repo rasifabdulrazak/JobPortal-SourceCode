@@ -1,0 +1,12 @@
+.employeeAdd{
+    text-align:right;
+    float:right;
+    font-weight: bold;
+    color:blue;
+}
+.employeeAdd:hover{
+    cursor: pointer;
+}
+.deleteicon:hover{
+    cursor: pointer;
+}
