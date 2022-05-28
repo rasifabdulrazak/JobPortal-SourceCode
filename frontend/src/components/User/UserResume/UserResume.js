@@ -1,85 +1,98 @@
-import React,{useState,useRef} from 'react'
-import {Container,Button,Modal, Form,Col,Row,Figure,ListGroup,Alert,Overlay,Popover} from 'react-bootstrap'
-import './UserResume.css'
-import { Pencil,Trash,ArrowDownCircleFill } from 'react-bootstrap-icons';
+import React, { useState, useRef } from "react";
+import {
+  Container,
+  Button,
+  Modal,
+  Form,
+  Col,
+  Row,
+  Figure,
+  ListGroup,
+  Alert,
+  Overlay,
+  Popover,
+} from "react-bootstrap";
+import "./UserResume.css";
+import { Pencil, Trash, ArrowDownCircleFill } from "react-bootstrap-icons";
 
 function UserResume() {
-    // const [show, setShow] = useState(false);
-    
-    const [show, setShow] = useState(false);
-    const [target, setTarget] = useState(null);
-    const ref = useRef(null);
+  // const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+  const [show, setShow] = useState(false);
+  const [target, setTarget] = useState(null);
+  const ref = useRef(null);
+
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
-    const handleClick = (event) => {
-        setShow(!show);
-        setTarget(event.target);
-      };
+  const handleClick = (event) => {
+    setShow(!show);
+    setTarget(event.target);
+  };
   return (
-      <Container>
-          {/* <Row className='resumepart'> */}
-                <Col >
-                <div className="wrappere">
-          
+    <Container>
+      {/* <Row className='resumepart'> */}
+      <Col>
+        <div className="wrappere">
           <div className="card radius shadowDepth1 shadow-lg">
-      
-              <div className="card__content card__padding">
-                <Alert variant="light" className='shadow-lg'>
-                <Alert.Heading><p style={{textAlign:'center'}}>Attach Resume </p></Alert.Heading>
+            <div className="card__content card__padding">
+              <Alert variant="light" className="shadow-lg">
+                <Alert.Heading>
+                  <p style={{ textAlign: "center" }}>Attach Resume </p>
+                </Alert.Heading>
                 <p>
-                Resume is the most important document recruiters look for. Recruiters generally
-                do not look at profiles without resumes.        
+                  Resume is the most important document recruiters look for.
+                  Recruiters generally do not look at profiles without resumes.
                 </p>
                 <Row>
-         <Col sm={12}>
-         <p className='' style={{fontWeight:'bold'}}>
-    
-          <span>Resume :Rasifrazak.pdf <ArrowDownCircleFill /><Trash className='deleteicon' /></span><br/>
-        
-          
-         
-          
-       
-          
-          
-         </p>
-         </Col>
-         </Row>
+                  <Col sm={12}>
+                    <p className="" style={{ fontWeight: "bold" }}>
+                      <span>
+                        Resume :Rasifrazak.pdf <ArrowDownCircleFill />
+                        <Trash className="deleteicon" />
+                      </span>
+                      <br />
+                    </p>
+                  </Col>
+                </Row>
                 <hr />
                 <p className="mb-0 text-center">
-                <div ref={ref}>
-                <Button onClick={handleClick}>Attach</Button>
-                <Overlay
-                    show={show}
-                    target={target}
-                    placement="bottom"
-                    container={ref}
-                    containerPadding={20}
-                >
-                     <Popover id="popover-contained">
-                <Popover.Header as="h3">Attach Your Resume Here</Popover.Header>
-                <Popover.Body>
-                    <strong><Form.Control type="file" placeholder="Enter email" required /></strong> <Button variant="primary" size="sm">Submit</Button>
-                </Popover.Body>
-                </Popover>
-                </Overlay>
-                </div>
+                  <div ref={ref}>
+                    <Button onClick={handleClick}>Attach</Button>
+                    <Overlay
+                      show={show}
+                      target={target}
+                      placement="bottom"
+                      container={ref}
+                      containerPadding={20}
+                    >
+                      <Popover id="popover-contained">
+                        <Popover.Header as="h3">
+                          Attach Your Resume Here
+                        </Popover.Header>
+                        <Popover.Body>
+                          <strong>
+                            <Form.Control
+                              type="file"
+                              placeholder="Enter email"
+                              required
+                            />
+                          </strong>{" "}
+                          <Button variant="primary" size="sm">
+                            Submit
+                          </Button>
+                        </Popover.Body>
+                      </Popover>
+                    </Overlay>
+                  </div>
                 </p>
-                </Alert>
-                </div>
-          
+              </Alert>
+            </div>
           </div>
-      
-              </div>
-                </Col>
-          
-           
+        </div>
+      </Col>
 
-
-                <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
@@ -111,9 +124,9 @@ function UserResume() {
           </Button>
         </Modal.Footer>
       </Modal>
-            {/* </Row> */}
+      {/* </Row> */}
     </Container>
-  )
+  );
 }
 
-export default UserResume
+export default UserResume;

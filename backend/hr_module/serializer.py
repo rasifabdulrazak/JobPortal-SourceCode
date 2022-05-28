@@ -15,7 +15,7 @@ class JobListingSerializer(serializers.ModelSerializer):
 class HrRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username','email','phonenumber','work_status','password'] 
+        fields ='__all__'
 
     def create(self, validated_data):
         user = CustomUser.objects.create(
@@ -30,4 +30,26 @@ class HrRegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-    
+
+class JobListSerializer(serializers.ModelSerializer):
+    hr_recruiter = RegisterSerializer()
+    class Meta:
+        model = PostJob
+        fields = '__all__'
+
+class PremiumPlansSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PremiumPlans
+        fields = '__all__'
+
+class SavedJobsSerializer(serializers.ModelSerializer):
+    saved_job = JobListSerializer()
+    class Meta:
+        model = SavedJobs
+        fields = '__all__'
+
+class SavingJobsSerializer(serializers.ModelSerializer):
+    # saved_job = JobListSerializer()
+    class Meta:
+        model = SavedJobs
+        fields = '__all__'

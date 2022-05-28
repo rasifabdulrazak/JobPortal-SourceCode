@@ -9,15 +9,12 @@ import {
   Alert,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import "./LoginForm.css";
-import { ExplicitFill } from "react-bootstrap-icons";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { Token } from "../../../utils";
 import { setUser } from "../../../Redux/Actions/UserInfoActions";
 
@@ -34,36 +31,33 @@ function LoginForm() {
   const [err, setErr] = useState();
 
   const dispatch = useDispatch();
+  const params = useParams();
 
   const loginUser = async (data) => {
-
     try {
       const datas = { username: data.username, password: data.password };
       const response = await axios.post("http://127.0.0.1:8000/token/", datas);
       localStorage.setItem(Token.ACCESS_TOKEN, response.data.access);
       localStorage.setItem(Token.REFRESH_TOKEN, response.data.refresh);
       const access_token = localStorage.getItem("accessToken");
-      
+
       if (access_token) {
         const decode = jwt_decode(access_token);
-        console.log(decode)
         dispatch(
-          setUser(
-          {
+          setUser({
             userId: decode.user_id,
             isStaff: decode.is_staff,
-          }
-          )
-          );
-         
-          console.log( dispatch(
-            setUser(
-            {
+          })
+        );
+
+        console.log(
+          dispatch(
+            setUser({
               userId: decode.user_id,
               isStaff: decode.is_staff,
-            }
-            )
-            ))
+            })
+          )
+        );
 
         if (decode.is_superuser) {
           navigate("/user_management");

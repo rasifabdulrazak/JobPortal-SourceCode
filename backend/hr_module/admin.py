@@ -5,3 +5,5 @@ from .models import *
 
 admin.site.register(PostJob)
 admin.site.register(HrProfile)
+admin.site.register(PremiumPlans)
+admin.site.register(AppliedUsers)

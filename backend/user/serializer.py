@@ -21,7 +21,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username','email','phonenumber','work_status','password'] 
+        fields = '__all__'
 
     def create(self, validated_data):
         user = CustomUser.objects.create(
@@ -37,6 +37,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    user = RegisterSerializer()
     class Meta:
         model = UserProfileDetails
         fields = '__all__'

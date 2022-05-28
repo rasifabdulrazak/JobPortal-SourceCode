@@ -1,24 +1,21 @@
-import React from 'react'
-import { Container ,Row,Col} from 'react-bootstrap'
-import RecruiterList from '../../../components/User/Recruiters/RecruiterList'
-import Header from '../../../components/User/Header/Header'
-import Footer from '../../../components/User/Footer/Footer'
-
+import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import RecruiterList from "../../../components/User/Recruiters/RecruiterList";
+import Header from "../../../components/User/Header/Header";
+import Footer from "../../../components/User/Footer/Footer";
 
 function Recruiter() {
   return (
     <>
-    <Header />
+      <Header />
       <Container>
-        
-        <Col >
-        <RecruiterList />
+        <Col>
+          <RecruiterList />
         </Col>
-        
-    </Container>
-    <Footer />
+      </Container>
+      <Footer />
     </>
-  )
+  );
 }
 
-export default Recruiter
+export default Recruiter;

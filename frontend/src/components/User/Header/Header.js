@@ -25,7 +25,6 @@ const Header = () => {
 
   const userId = useSelector((state) => state.userId);
 
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -50,7 +49,7 @@ const Header = () => {
 
   const logoutUserhandler = () => {
     dispatch(logoutUser());
-    localStorage.removeItem(Token.ACCESS_TOKEN)
+    localStorage.removeItem(Token.ACCESS_TOKEN);
     navigate("/login");
   };
 
@@ -116,9 +115,11 @@ const Header = () => {
                   <Typography textAlign="center">Recruiters</Typography>
                 </MenuItem>
 
-               {!userId && <MenuItem onClick={() => navigate("/login")}>
-                  <Typography textAlign="center">Login</Typography>
-                </MenuItem>}
+                {!userId && (
+                  <MenuItem onClick={() => navigate("/login")}>
+                    <Typography textAlign="center">Login</Typography>
+                  </MenuItem>
+                )}
               </Menu>
             </Box>
 
@@ -162,16 +163,18 @@ const Header = () => {
                 Recruiters
               </Button>
 
-             {!userId  && <Button
-                onClick={() => navigate("/login")}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Login
-              </Button>}
+              {!userId && (
+                <Button
+                  onClick={() => navigate("/login")}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Login
+                </Button>
+              )}
             </Box>
 
-             
-             { userId && !userId.isStaff && <Box sx={{ flexGrow: 0 }}>
+            {userId && !userId.isStaff && (
+              <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
@@ -221,8 +224,8 @@ const Header = () => {
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
                 </Menu>
-              </Box>}
-            
+              </Box>
+            )}
           </Toolbar>
         </Container>
       </AppBar>

@@ -38,7 +38,7 @@ class UserPersonalDetails(models.Model):
 class UserSkills(models.Model):
     user =  models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name= 'user_skill') 
     added_date = models.DateTimeField(auto_now_add=True,null=True)
-    skills = models.CharField(max_length=200,null=True)
+    skills = models.CharField(max_length=200,null=True,unique=True)
 
 
 # TABLE FOR STORING USER EMPLOYMENT DETAILS IF ANY  
@@ -52,6 +52,12 @@ class UserEmploymentDetails(models.Model):
     salary = models.IntegerField()
     position = models.CharField(max_length = 200)
     job_description = models.TextField()
+
+    def __str__(self):
+        return self.company_name
+
+    # def __iter__(self):
+    #     return [field.value_to_string(self) for field in UserEmploymentDetails._meta.fields]
 
 
 # TABLE FOR STORING USER EDUCATIONAL DETAILS IF ANY

@@ -1,16 +1,15 @@
-import React from 'react'
-import HrHeader from '../../components/Hr/HrHeader/HrHeader'
-import Postjobs from '../../components/Hr/PostJobs/Postjobs'
+import React from "react";
+import HrHeader from "../../components/Hr/HrHeader/HrHeader";
+import Postjobs from "../../components/Hr/PostJobs/Postjobs";
 
 function JobPosting() {
   return (
     <div>
       <HrHeader />
-    
-      <Postjobs />
 
+      <Postjobs />
     </div>
-  )
+  );
 }
 
-export default JobPosting
+export default JobPosting;
