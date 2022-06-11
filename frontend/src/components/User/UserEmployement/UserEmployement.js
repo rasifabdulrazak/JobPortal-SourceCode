@@ -16,13 +16,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Instagram, Pencil, Trash } from "react-bootstrap-icons";
 import "./UserEmployement.css";
 import axios from "axios";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function UserEmployement() {
+  const [empModal,setEmpModal] = useState(false)
+  const [confirm, setConfirm] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [smShow, setSmShow] = useState(false);
   const handleClose = () => setModalShow(false);
   const handleShow = () => setModalShow(true);
-  const [employement, setEmployement] = useState();
+  const [employement, setEmployement] = useState([]);
   const userId = useSelector((state) => state.userId);
   const navigate = useNavigate();
   const {
@@ -65,13 +68,24 @@ function UserEmployement() {
       const { data } = await axios.delete(
         `http://127.0.0.1:8000/users/user_employment/${e}/`
       );
-      employeeDetail();
       setSmShow(false);
+      employeeDetail();
+      setConfirm(true);
       console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const editEmployement= async (data)=>{
+    try {
+      await axios.put(`http://127.0.0.1:8000/users/user_employment/${empModal.id}/`,data)
+      employeeDetail()
+      setEmpModal(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const employeeDetail = async () => {
     try {
@@ -108,10 +122,10 @@ function UserEmployement() {
                 </Alert.Heading>
                 <Row>
                   <Col sm={12}>
-                    {employement &&
+                    {employement.length > 0 ? (
                       employement.map((value) => (
                         <p className="" style={{ fontWeight: "bold" }}>
-                          Company : {value.company_name} <Pencil />
+                          Company : {value.company_name} <Pencil onClick={()=>setEmpModal(value)}/>
                           <br />
                           Designation :{value.position} <br />
                           <Trash
@@ -153,7 +167,10 @@ function UserEmployement() {
                             </Modal.Footer>
                           </Modal>
                         </p>
-                      ))}
+                      ))
+                    ) : (
+                      <p>Please Provide Employement details</p>
+                    )}
                   </Col>
                 </Row>
                 <hr />
@@ -163,7 +180,7 @@ function UserEmployement() {
           </div>
         </div>
       </Col>
-
+      {/* +++++++++++++++++++Add Modal Starts Here++++++++++++++++++++++++++++++++ */}
       <Modal
         show={modalShow}
         size="lg"
@@ -364,6 +381,241 @@ function UserEmployement() {
           </Modal.Footer>
         </Form>
       </Modal>
+      {/* +++++++++++++++++++Add Modal Ends Here++++++++++++++++++++++++++++++++ */}
+
+
+
+      {/* +++++++++++++++++++Edit Modal Starts Here++++++++++++++++++++++++++++++++ */}
+
+      {empModal && <Modal
+        show={empModal}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className="wrapper"
+      >
+        <Modal.Header onClick={()=>setEmpModal(false)} closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Employement
+          </Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={handleSubmit(editEmployement)}>
+          <Modal.Body>
+            <Row>
+              <Col sm={5} style={{ float: "right" }}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Company</Form.Label>
+                  <Form.Control
+                    {...register("company_name", {
+                      required: "company is required",
+                      minLength: {
+                        value: 6,
+                        message: "Should contain 6 characters",
+                      },
+                    })}
+                    value={empModal.company_name}
+                    onChange={(e) => setEmpModal({ ...empModal, company_name: e.target.value })}
+                    type="text"
+                    placeholder="Enter Company"
+                  />
+                  <Form.Text className="text-muted">
+                    <span className="text-center">
+                      {errors.company_name && (
+                        <small className="text-center text-danger">
+                          {errors.company_name.message}
+                        </small>
+                      )}
+                    </span>
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+              <Col sm={5}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Experience</Form.Label>
+                  <Form.Control
+                    {...register("expereince", {
+                      required: "experiece is required",
+                      minLength: {
+                        value: 6,
+                        message: "Should contain 6 characters",
+                      },
+                    })}
+                    value={empModal.expereince}
+                    onChange={(e) => setEmpModal({ ...empModal, expereince: e.target.value })}
+                    type="text"
+                    placeholder="Enter Experience"
+                  />
+                  <Form.Text className="text-muted">
+                    <span className="text-center">
+                      {errors.expereince && (
+                        <small className="text-center text-danger">
+                          {errors.expereince.message}
+                        </small>
+                      )}
+                    </span>
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+              <Col sm={5} style={{ float: "right" }}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>StartDate</Form.Label>
+                  <Form.Control
+                    {...register("started_date", {
+                      required: "startdate is required",
+                      minLength: {
+                        value: 6,
+                        message: "Should contain 6 characters",
+                      },
+                    })}
+                    value={empModal.started_date}
+                    onChange={(e) => setEmpModal({ ...empModal, started_date: e.target.value })}
+                    type="date"
+                    placeholder="Enter Startdate"
+                  />
+                  <Form.Text className="text-muted">
+                    <span className="text-center">
+                      {errors.started_date && (
+                        <small className="text-center text-danger">
+                          {errors.started_date.message}
+                        </small>
+                      )}
+                    </span>
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+              <Col sm={5}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label> EndDate</Form.Label>
+                  <Form.Control
+                    {...register("ending_date", {
+                      required: "enddate is required",
+                      minLength: {
+                        value: 6,
+                        message: "Should contain 6 characters",
+                      },
+                    })}
+                    value={empModal.ending_date}
+                    onChange={(e) => setEmpModal({ ...empModal, ending_date: e.target.value })}
+                    type="date"
+                    placeholder="Enter Enddate"
+                  />
+                  <Form.Text className="text-muted">
+                    <span className="text-center">
+                      {errors.ending_date && (
+                        <small className="text-center text-danger">
+                          {errors.ending_date.message}
+                        </small>
+                      )}
+                    </span>
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+              <Col sm={5} style={{ float: "right" }}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Position</Form.Label>
+                  <Form.Control
+                    {...register("position", {
+                      required: "position is required",
+                      minLength: {
+                        value: 6,
+                        message: "Should contain 6 characters",
+                      },
+                    })}
+                    value={empModal.position}
+                    onChange={(e) => setEmpModal({ ...empModal, position: e.target.value })}
+                    type="text"
+                    placeholder="Enter Position"
+                  />
+                  <Form.Text className="text-muted">
+                    <span className="text-center">
+                      {errors.position && (
+                        <small className="text-center text-danger">
+                          {errors.position.message}
+                        </small>
+                      )}
+                    </span>
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+              <Col sm={5}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Salary</Form.Label>
+                  <Form.Control
+                    {...register("salary", {
+                      required: "salary is required",
+                      minLength: {
+                        value: 6,
+                        message: "Should contain 6 characters",
+                      },
+                    })}
+                    value={empModal.salary}
+                    onChange={(e) => setEmpModal({ ...empModal, salary: e.target.value })}
+                    type="number"
+                    placeholder="Enter Salary in LPA"
+                  />
+                  <Form.Text className="text-muted">
+                    <span className="text-center">
+                      {errors.salary && (
+                        <small className="text-center text-danger">
+                          {errors.salary.message}
+                        </small>
+                      )}
+                    </span>
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+              <Col sm={12}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>JobDescription</Form.Label>
+                  <Form.Control
+                    {...register("job_description", {
+                      required: "description is required",
+                      minLength: {
+                        value: 6,
+                        message: "Should contain 6 characters",
+                      },
+                    })}
+                    value={empModal.job_description}
+                    onChange={(e) => setEmpModal({ ...empModal, job_description: e.target.value })}
+                    style={{ width: "100%", height: "13rem" }}
+                    type="text"
+                    placeholder="Enter Jobdescription"
+                  />
+                  <Form.Text className="text-muted">
+                    <span className="text-center">
+                      {errors.job_description && (
+                        <small className="text-center text-danger">
+                          {errors.job_description.message}
+                        </small>
+                      )}
+                    </span>
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" type="submit" onClick={()=>setEmpModal(false)}>
+              Close
+            </Button>
+            <Button type="submit">
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>}
+      {/* +++++++++++++++++++Edit Modal Ends Here++++++++++++++++++++++++++++++++ */}
+
+      {/* ***********************Delete Alerts Starts here******************************** */}
+      <SweetAlert
+        success
+        title="Deleted!"
+        show={confirm}
+        onConfirm={() => setConfirm(false)}
+      >
+        Employement Deleted
+      </SweetAlert>
+      {/* ***********************Delete Alert Ends******************************** */}
     </Container>
   );
 }

@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('user.urls')),
     path('hr_login/',include('hr_module.urls')),
-    path('api/',include(router.urls))
+    path('api/',include(router.urls)),
+    path('chat_app/',include('chatapp.urls')),
 ]

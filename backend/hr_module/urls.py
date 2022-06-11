@@ -13,4 +13,5 @@ urlpatterns = [
     path('saved_jobs/<int:pk>/',SaveJobs.as_view(),name='saved_jobs'),
     path('hr/',views.hr,name='hr'),
     path('saving_job/',views.savingJobs,name='saving_job'),
+    path('applied_jobs/',AppliedUserView.as_view(),name='applied_job'),
 ]+router.urls

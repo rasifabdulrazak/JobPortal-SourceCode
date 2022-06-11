@@ -4,6 +4,8 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import *
+from hr_module.models import PremiumCustomers
+
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -37,7 +39,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    user = RegisterSerializer()
+    user = RegisterSerializer(partial=True)
+    # email=serializers.CharField()
+    # files = serializers.FileField()
+   
     class Meta:
         model = UserProfileDetails
         fields = '__all__'
@@ -52,6 +57,11 @@ class UserSkillsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserSkills
         fields = '__all__'
+
+class UserResumeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserResume
+        fields='__all__'
 
 
 class UserEmploymentSerializer(serializers.ModelSerializer):
@@ -69,3 +79,19 @@ class UserProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProjectDetails
         fields = '__all__'
+
+class PaymentSuccessSerializer(serializers.ModelSerializer):
+    email =serializers.CharField(source='user.email',read_only=True)
+    phonenumber =serializers.CharField(source='user.phonenumber',read_only=True)
+    user_id =serializers.CharField(source='user.username',read_only=True)
+    plan_id =serializers.CharField(source='plan.plan_name',read_only=True)
+    duration=serializers.CharField(source='plan.duration',read_only=True)
+    class Meta:
+        model = PremiumCustomers
+        fields = '__all__'
+
+# class PremiumCustomerSerializer(serializers.ModelSerializer):
+  
+#     class Meta:
+#         model = PremiumCustomers
+#         fields = '__all__'

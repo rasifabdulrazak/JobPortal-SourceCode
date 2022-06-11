@@ -9,10 +9,7 @@ import { useNavigate } from "react-router-dom";
 function Postjobs() {
   const {
     register,
-    reset,
-    trigger,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm();
   const userId = useSelector((state) => state.userId);
@@ -41,7 +38,7 @@ function Postjobs() {
       navigate("/posted_job");
     } catch (error) {
       console.log("kjhgfdsdfghjhgfds");
-      console.log(error);
+      console.log(error.response);
     }
   };
 
@@ -89,8 +86,8 @@ function Postjobs() {
                           {...register("company", {
                             required: "company is required",
                             minLength: {
-                              value: 6,
-                              message: "Should contain 6 characters",
+                              value: 3,
+                              message: "Should contain 3 characters",
                             },
                           })}
                           type="text"
@@ -116,8 +113,8 @@ function Postjobs() {
                           {...register("location", {
                             required: "location is required",
                             minLength: {
-                              value: 6,
-                              message: "Should contain 6 characters",
+                              value: 2,
+                              message: "Should contain 2 characters",
                             },
                           })}
                           type="text"
@@ -144,8 +141,8 @@ function Postjobs() {
                           {...register("education", {
                             required: "education is required",
                             minLength: {
-                              value: 6,
-                              message: "Should contain 6 characters",
+                              value: 2,
+                              message: "Should contain 2 characters",
                             },
                           })}
                           type="text"
@@ -171,8 +168,8 @@ function Postjobs() {
                           {...register("experience", {
                             required: "experience is required",
                             minLength: {
-                              value: 6,
-                              message: "Should contain 6 characters",
+                              value: 1,
+                              message: "Should contain 1 characters",
                             },
                           })}
                           type="text"
@@ -225,13 +222,13 @@ function Postjobs() {
                         <Form.Control
                           {...register("salary_from", {
                             required: "salary_from is required",
-                            minLength: {
-                              value: 6,
-                              message: "Should contain 6 characters",
+                            maxLength: {
+                              value: 2,
+                              message: "Should contain maximum 2 characters",
                             },
                           })}
                           type="number"
-                          placeholder="Enter Salary from"
+                          placeholder="Enter Salary in LPA"
                         />
                         <Form.Text className="text-muted">
                           <span className="text-center">
@@ -253,13 +250,13 @@ function Postjobs() {
                         <Form.Control
                           {...register("salary_to", {
                             required: "salary_to is required",
-                            minLength: {
-                              value: 6,
-                              message: "Should contain 6 characters",
+                            maxLength: {
+                              value: 2,
+                              message: "Should contain only 2 characters",
                             },
                           })}
                           type="number"
-                          placeholder="Enter Salary to"
+                          placeholder="Enter Salary in LPA"
                         />
                         <Form.Text className="text-muted">
                           <span className="text-center">

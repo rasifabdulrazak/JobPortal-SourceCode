@@ -21,7 +21,7 @@ import axios from "axios";
 
 function KeySkills() {
   const [show, setShow] = useState(false);
-  const [skills, setSkills] = useState();
+  const [skills, setSkills] = useState([]);
   const [error, setError] = useState();
   const navigate = useNavigate();
   const handleClose = () => setShow(false);
@@ -91,7 +91,7 @@ function KeySkills() {
                 </div>
                 <p>
                   <Row style={{ padding: "1rem" }}>
-                    {skills &&
+                    {skills.length>0 ?
                       skills.map((value) => (
                         <Col style={{ display: "flex", marginLeft: "3px" }}>
                           <Alert
@@ -105,7 +105,7 @@ function KeySkills() {
                             />
                           </Alert>
                         </Col>
-                      ))}
+                      )):(<p>Please Provide the key skills you have</p>)}
                   </Row>
                 </p>
                 <hr />

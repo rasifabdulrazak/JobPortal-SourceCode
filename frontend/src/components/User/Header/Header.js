@@ -41,12 +41,6 @@ const Header = () => {
   };
   const navigate = useNavigate();
 
-  const [authTokens, setAuthTokens] = useState(() =>
-    localStorage.getItem("accessTokens")
-  );
-
-  const [user, setUser] = useState(() => localStorage.getItem("accessTokens"));
-
   const logoutUserhandler = () => {
     dispatch(logoutUser());
     localStorage.removeItem(Token.ACCESS_TOKEN);
@@ -105,7 +99,7 @@ const Header = () => {
                 </MenuItem>
 
                 <MenuItem onClick={() => navigate("/companies")}>
-                  <Typography textAlign="center">Companies</Typography>
+                  <Typography textAlign="center">PrePlans</Typography>
                 </MenuItem>
 
                 <MenuItem onClick={() => navigate("/about_us")}>
@@ -148,7 +142,7 @@ const Header = () => {
                 onClick={() => navigate("/companies")}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                Companies
+                PrePlans
               </Button>
               <Button
                 onClick={() => navigate("/about_us")}
@@ -171,6 +165,7 @@ const Header = () => {
                   Login
                 </Button>
               )}
+              
             </Box>
 
             {userId && !userId.isStaff && (

@@ -1,0 +1,4 @@
+export const CONNECT_SOCKETIO = 'CONNECT_SOCKETIO'
+export const ALL_MESSAGE = 'ALL_MESSAGE'
+export const RECIVER_ID = 'RECIVER_ID'
+export const ADD_MESSAGES = "ADD_MESSAGES"

@@ -2,11 +2,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./JobDetails.css";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function JobDetails() {
   const params = useParams();
+  const userId = useSelector((state) => state.userId);
   const [jobs, setJobs] = useState();
+  const [confirm, setConfirm] = useState(false);
   const [requirements, setRequirements] = useState([]);
   const [jobdescription, setJobdescription] = useState([]);
   const [jobhighlights, setJobhighlights] = useState([]);
@@ -17,6 +21,9 @@ function JobDetails() {
     axios
       .get(`http://127.0.0.1:8000/api/jobsrender/${params.id}/`)
       .then((res) => {
+        console.log("++++++++++++++++")
+        console.log(res)
+        console.log("++++++++++++++++")
         setJobs(res.data);
         console.log(res.data);
         let job_requirements = res.data.requirements.split(".");
@@ -50,6 +57,19 @@ function JobDetails() {
         console.log(error);
       });
   }, []);
+
+  const jobApplyHandler = async ()=>{
+    try {
+      const data={
+        applied_user:userId.userId,
+        applied_job:params.id
+      }
+      await axios.post('http://127.0.0.1:8000/hr_login/applied_jobs/',data)
+      setConfirm(true);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Container>
@@ -397,6 +417,7 @@ function JobDetails() {
               </div>
             </div>
             <Button
+              onClick={()=>jobApplyHandler()}
               variant="primary"
               size="lg"
               style={{
@@ -410,6 +431,14 @@ function JobDetails() {
           </div>
         </div>
       </Row>
+      <SweetAlert
+        success
+        title="Application Succesfull"
+        show={confirm}
+        onConfirm={() => setConfirm(false)}
+      >
+        Your Application was sent Succesfully
+      </SweetAlert>
     </Container>
   );
 }

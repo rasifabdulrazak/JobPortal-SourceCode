@@ -39,7 +39,7 @@ class PostJob(models.Model):
 class PremiumPlans(models.Model):
     added_date = models.DateField(auto_now_add=True, null=True)
     plan_name = models.CharField(max_length=200, unique=True)
-    duration = models.CharField(max_length=200)
+    duration = models.CharField(max_length=200,unique=True)
     plan_rate = models.CharField(max_length=100,unique=True)
     plan_description = models.TextField()
 
@@ -62,3 +62,8 @@ class SavedJobs(models.Model):
         PostJob, on_delete=models.CASCADE, related_name="saved_jobs"
     )
 
+
+class PremiumCustomers(models.Model):
+    user =  models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name= 'premium_customer') 
+    plan = models.ForeignKey(PremiumPlans,on_delete=models.CASCADE,related_name= 'plan_used') 
+    date_of_begin = models.DateField(auto_now_add=True,null=True)

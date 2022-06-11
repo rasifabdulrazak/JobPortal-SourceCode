@@ -15,15 +15,20 @@ import axios from "axios";
 import { ArrowRight } from "react-bootstrap-icons";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { useDispatch, useSelector } from "react-redux";
+import {getAlljobs} from '../../../Redux/Actions/UserInfoActions'
 
 function JobContent() {
   const navigate = useNavigate();
+  const dispatch=useDispatch()
   const [search, setSearch] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [exist, setExist] = useState();
   const userId = useSelector((state) => state.userId);
 
+const { allJobs: { job } } = useSelector((state) => {
+  return state
+})
   const savedJobs = async () => {
     const { data } = await axios.get(
       `http://127.0.0.1:8000/hr_login/saved_jobs/${userId.userId}`
@@ -47,8 +52,10 @@ function JobContent() {
   };
 
   const fecthJobs = async () => {
-    const { data } = await axios.get(`http://127.0.0.1:8000/api/jobsrender/`);
-    setJobs(data);
+    // const { data } = await axios.get(`http://127.0.0.1:8000/api/jobsrender/`);
+    // setJobs(data);
+    dispatch(getAlljobs())
+    console.log(dispatch(getAlljobs()))
   };
 
   useEffect(() => {
@@ -61,22 +68,14 @@ function JobContent() {
     <Container>
       <div>
         {
-          jobs && jobs.map((value)=>{
+          job && job.map((value)=>{
             const {id,
               hr_recruiter,
               posting_date,
               title,
               company,
-              about_company,
-              location,
-              experience_required,
-              job_description,
               job_highlights,
               educational_requirments,
-              salary_from,
-              salary_to,
-              requirements,
-              skills_required
             } = value;
 
             return (
@@ -97,7 +96,7 @@ function JobContent() {
 
                 <div className="card__meta">
                   <a>{value.location}</a>
-                  <time className="title">Posted On: {posting_date}</time>
+                  <time className="title">Posted On: {educational_requirments}</time>
                 </div>
 
                 <article

@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 function UserPersonalDetail() {
   const [modalShow, setModalShow] = useState(false);
   const userId = useSelector((state) => state.userId);
-  const [details, setDetails] = useState();
+  const [details, setDetails] = useState([]);
   const handleClose = () => setModalShow(false);
   const handleShow = () => setModalShow(true);
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ function UserPersonalDetail() {
                     <Pencil onClick={() => setModalShow(true)} />
                   </p>
                 </Alert.Heading>
-                {details &&
+                {details.length>0 ?
                   details.map((value) => (
                     <Row>
                       <Col sm={4}>
@@ -128,7 +128,7 @@ function UserPersonalDetail() {
                         {value.marital_status}
                       </Col>
                     </Row>
-                  ))}
+                  )):(<p>Please provide Personal details</p>)}
                 <hr />
                 <p className="mb-0 text-center"></p>
               </Alert>

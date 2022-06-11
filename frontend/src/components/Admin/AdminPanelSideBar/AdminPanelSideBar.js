@@ -53,6 +53,7 @@ function AdminPanelSideBar() {
           <article
             className="card-group-item"
             style={{ background: "grey", marginBottom: "1rem" }}
+            onClick={() => navigate("/premium_customers")}
           >
             <header className="card-header titles">
               <h6 className="title">Premium Customers</h6>

@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
-from hr_module.models import *
-# Create your models here.
+
 from cloudinary.models import CloudinaryField
+# Create your models here.
+
 
 
 # BASE TABLE FOR STORING USER AND HR DETAILS
@@ -16,10 +17,14 @@ class UserProfileDetails(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name= 'user_profile_detail')
     added_date = models.DateTimeField(auto_now_add=True,null=True)
     location = models.CharField(max_length=200,null=True)
-    resume = models.FileField(upload_to ='user_resume/',null=True)
     profile_photo = models.ImageField(upload_to='user_profilepics/',null=True)
-    resume_headline = models.CharField(max_length=300,null=True)
     profile_summary=models.TextField()
+
+class UserResume(models.Model):
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name= 'user_resume')
+    resume = models.FileField(upload_to ='user_resume/',null=True)
+    resume_headline = models.CharField(max_length=300,null=True)
+
 
 
 # TABLE FOR STORING USER PERSONAL DETAILS
@@ -86,4 +91,6 @@ class UserProjectDetails(models.Model):
 #     user =  models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name= 'saved_jobs')
 #     added_date = models.DateTimeField(auto_now_add=True,null=True)
 #     job = models.ManyToManyField(to='hr_module.Postjob')
+
+
 

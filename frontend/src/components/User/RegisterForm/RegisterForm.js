@@ -73,7 +73,7 @@ function RegisterForm() {
                 <div className="card__content card__padding">
                   <Form
                     onSubmit={handleSubmit(onSubmit)}
-                    enctype="multipart/form-data"
+                    encType="multipart/form-data"
                   >
                     <Row style={{ marginTop: "2rem" }}>
                       <Col sm={8}>

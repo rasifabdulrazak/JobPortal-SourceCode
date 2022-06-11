@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # ... include the providers you want to enable:
     'allauth.socialaccount.providers.google',
+    'chatapp',
 
 ]
 
@@ -155,8 +156,9 @@ REST_FRAMEWORK = {
            'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
+        
+        'rest_framework_simplejwt.authentication.JWTAuthentication', 
+       
     )
 }
 
@@ -203,3 +205,13 @@ CLOUDINARY_STORAGE = {
 }
 
 # SITE_ID = 1
+
+RAZORPAYAUTHONE = config('RAZORPAYAUTHONE')
+RAZORPAYAUTHSECOND = config('RAZORPAYAUTHSECOND')
+
+
+DEFAULT_PARSER_CLASSES: (
+    'rest_framework.parsers.JSONParser',
+    'rest_framework.parsers.FormParser',
+    'rest_framework.parsers.MultiPartParser',
+)

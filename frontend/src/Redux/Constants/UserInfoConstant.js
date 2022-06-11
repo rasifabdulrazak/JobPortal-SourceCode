@@ -1,2 +1,8 @@
 export const SET_USER = "SET_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
+export const GET_ALL_JOB_REQUEST="GET_ALL_JOB_REQUEST"
+export const GET_ALL_JOB_SUCCESS="GET_ALL_JOB_SUCCESS"
+export const GET_ALL_JOB_FAIL="GET_ALL_JOB_FAIL"
+export const PLACE_SORT="PLACE_SORT"
+export const EDUCATION_SORT="EDUCATION_SORT"
+

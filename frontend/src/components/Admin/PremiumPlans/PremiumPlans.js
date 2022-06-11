@@ -39,6 +39,7 @@ const PremiumPlans = () => {
       const errors = {
         plan_name: error.response.data.plan_name,
         plan_rate: error.response.data.plan_rate,
+        duration: error.response.data.duration,
       };
       setErr(errors);
     }
@@ -135,7 +136,7 @@ const PremiumPlans = () => {
           </Modal.Header>
           <Modal.Body>
             <small className="text-center text-danger">
-              {(err && err.plan_name) || (err && err.plan_rate)}
+              {(err && err.plan_name) || (err && err.plan_rate) || (err && err.duration)}
             </small>
 
             <Row>

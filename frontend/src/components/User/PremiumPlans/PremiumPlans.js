@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, ListGroup } from "react-bootstrap";
 import "./PremiumPlans.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function PremiumPlans() {
+  const navigate = useNavigate()
   const Colors = [
     "#A569BD",
     "#5DADE2",
@@ -102,7 +104,7 @@ function PremiumPlans() {
                         color += 1;
 
                         return (
-                          <div className="col-sm-6">
+                          <div className="col-sm-6" onClick={()=>navigate(`/payment_details/${value.id}/`)}>
                             <div
                               className="card  order-card shadow-lg"
                               style={{ backgroundColor: Colors[color] }}

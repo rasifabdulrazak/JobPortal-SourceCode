@@ -110,7 +110,7 @@ const HrHeader = () => {
               <MenuItem onClick={() => navigate("/post_job")}>
                 <Typography textAlign="center">Post Job</Typography>
               </MenuItem>
-              <MenuItem>
+              <MenuItem onClick={()=>navigate("/user_listing")}>
                 <Typography textAlign="center">Clients</Typography>
               </MenuItem>
             </Menu>
@@ -152,7 +152,9 @@ const HrHeader = () => {
             >
               Post Job
             </Button>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
+            <Button 
+              sx={{ my: 2, color: "white", display: "block" }} 
+              onClick={()=>navigate("/user_listing")}>
               Clients
             </Button>
           </Box>

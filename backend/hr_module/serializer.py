@@ -32,7 +32,7 @@ class HrRegisterSerializer(serializers.ModelSerializer):
         return user
 
 class JobListSerializer(serializers.ModelSerializer):
-    hr_recruiter = RegisterSerializer()
+    # hr_recruiter = RegisterSerializer()
     class Meta:
         model = PostJob
         fields = '__all__'
@@ -52,4 +52,9 @@ class SavingJobsSerializer(serializers.ModelSerializer):
     # saved_job = JobListSerializer()
     class Meta:
         model = SavedJobs
+        fields = '__all__'
+
+class AppliedUsersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppliedUsers
         fields = '__all__'

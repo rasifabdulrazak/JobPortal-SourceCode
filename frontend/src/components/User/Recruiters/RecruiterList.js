@@ -1,10 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Container, Col, Row, Button, Form, Modal } from "react-bootstrap";
 import "./RecruiterList.css";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
 
 function RecruiterList() {
+  const [smShow, setSmShow] = useState(false);
   const [recruiter, setRecruiter] = useState();
+  const userId = useSelector((state) => state.userId);
+  const navigate = useNavigate()
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm();
+
+  const submitMessage = async ()=>{
+    const data = {
+      user1:parseInt(userId.userId),
+      user2:parseInt(smShow)
+    }
+    console.log(data)
+    const response = await axios.post(`http://127.0.0.1:8000/chat_app/chat/`,data)
+    
+    setSmShow(false)
+  }
+
 
   const hrlisting = async () => {
     try {
@@ -68,13 +92,51 @@ function RecruiterList() {
 
                       <p>{value.email}</p>
                     </article>
-                    <Button>View details</Button>
+                    <Button onClick={()=>setSmShow(value.id)}>View details</Button>
                   </div>
                 </div>
               </div>
             </Col>
           ))}
       </Row>
+
+
+       {/* #########################  modal  ######################################## */}
+
+        
+      {smShow && <Modal
+            size="sm"
+            show={smShow}
+            onHide={() => setSmShow(false)}
+            aria-labelledby="example-modal-sizes-title-sm"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="example-modal-sizes-title-sm">
+                Send Initial Message
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={handleSubmit(submitMessage)}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Message</Form.Label>
+                  <Form.Control required type="text" placeholder="Enter a message" />
+                </Form.Group>
+                <div className="text-center">
+                <Button variant="primary" type="submit" >
+                  Send
+                </Button>
+                </div>
+                
+              </Form>
+            </Modal.Body>
+          
+          </Modal>}
+        
+
+        {/* #########################  modal  ######################################## */}
+
+
     </Container>
   );
 }
